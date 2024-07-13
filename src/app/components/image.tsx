@@ -1,28 +1,19 @@
-import { ImgHTMLAttributes } from 'react'
+import { omit } from 'lodash'
 import {
   LazyLoadImage,
   trackWindowScroll,
-  ScrollPosition,
-  Effect,
+  LazyLoadImageProps,
 } from 'react-lazy-load-image-component'
 
-interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
-  scrollPosition: ScrollPosition
-  effect?: Effect
-}
-
 const Image = ({
-  scrollPosition,
   effect = 'black-and-white',
   ...props
-}: ImageProps) => {
+}: LazyLoadImageProps) => {
+  const sanitizedProps = omit(props, 'forwardRef')
+
   return (
     <div className="flex items-center">
-      <LazyLoadImage
-        effect={effect}
-        {...props}
-        scrollPosition={scrollPosition}
-      />
+      <LazyLoadImage effect={effect} {...sanitizedProps} />
     </div>
   )
 }

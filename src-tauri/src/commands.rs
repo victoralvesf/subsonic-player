@@ -1,8 +1,8 @@
 use futures_util::StreamExt;
 use reqwest::{header::ACCEPT, Client, Url};
+use tauri::Manager;
 
 use std::{fs::File, io::Write, path::PathBuf, time::Instant};
-use tauri::api::path::download_dir;
 
 use crate::{progress::Progress, utils::get_filename};
 
@@ -27,7 +27,10 @@ pub async fn download_file(
 
     let file_name = get_filename(response.headers(), &file_id).unwrap();
 
-    let download_path = download_dir().ok_or("Failed to get download directory")?;
+    let download_path = app_handle
+        .path()
+        .download_dir()
+        .map_err(|e| e.to_string())?;
     let save_path: PathBuf = [download_path, file_name.into()].iter().collect();
 
     let mut file = File::create(save_path).map_err(|e| e.to_string())?;

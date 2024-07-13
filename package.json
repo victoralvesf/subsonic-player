@@ -29,7 +29,8 @@
     "@radix-ui/react-tabs": "^1.0.4",
     "@radix-ui/react-tooltip": "^1.0.7",
     "@tanstack/react-table": "^8.17.3",
-    "@tauri-apps/api": "^1",
+    "@tauri-apps/api": "2.0.0-beta.15",
+    "@tauri-apps/plugin-http": "2.0.0-beta.8",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
@@ -61,7 +62,7 @@
   },
   "devDependencies": {
     "@rocketseat/eslint-config": "^2.2.2",
-    "@tauri-apps/cli": "^1",
+    "@tauri-apps/cli": "2.0.0-beta.22",
     "@types/crypto-js": "^4.2.2",
     "@types/lodash": "^4.17.4",
     "@types/node": "^20.12.12",

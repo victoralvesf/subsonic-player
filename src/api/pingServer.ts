@@ -1,4 +1,4 @@
-import { fetch as tauriFetch } from '@tauri-apps/api/http'
+import { fetch as tauriFetch } from '@tauri-apps/plugin-http'
 import { SubsonicJsonResponse } from '@/types/responses/subsonicResponse'
 import { appName } from '@/utils/appName'
 import { saltWord } from '@/utils/salt'
@@ -15,24 +15,22 @@ export async function pingServer(url: string, user: string, token: string) {
       f: 'json',
     }
 
+    const queries = new URLSearchParams(query).toString()
+    let response: Response | null = null
+
     if (isTauri()) {
-      const response = await tauriFetch(`${url}/rest/ping.view`, {
+      response = await tauriFetch(`${url}/rest/ping.view?${queries}`, {
         method: 'GET',
-        query,
       })
-      const data = response.data as SubsonicJsonResponse
-
-      return data['subsonic-response'].status === 'ok'
     } else {
-      const queries = new URLSearchParams(query).toString()
-
-      const response = await fetch(`${url}/rest/ping.view?${queries}`, {
+      response = await fetch(`${url}/rest/ping.view?${queries}`, {
         method: 'GET',
       })
-      const data = await response.json()
-
-      return data['subsonic-response'].status === 'ok'
     }
+
+    const data = (await response.json()) as SubsonicJsonResponse
+
+    return data['subsonic-response'].status === 'ok'
   } catch (_) {
     return false
   }

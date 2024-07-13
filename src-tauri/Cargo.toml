@@ -1,5 +1,5 @@
 [package]
-name = "aonsoku"
+name = "Aonsoku"
 version = "0.0.0"
 description = "A modern desktop client for Navidrome/Subsonic servers."
 authors = ["Victor Alves"]
@@ -8,24 +8,17 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [build-dependencies]
-tauri-build = { version = "1", features = [] }
+tauri-build = { version = "2.0.0-beta", features = [] }
 
 [dependencies]
-tauri = { version = "1", features = [
-  "process-exit",
-  "clipboard-all",
-  "global-shortcut-all",
-  "os-all",
-  "http-all",
-  "http-api",
-  "shell-open",
-] }
+tauri = { version = "2.0.0-beta", features = [] }
 reqwest = { version = "0.12", features = ["json", "stream"] }
 tokio = { version = "1", features = ["full"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 futures-util = "0.3"
 regex = "1.10.5"
+tauri-plugin-http = "2.0.0-beta.12"
 
 [features]
 # This feature is used for production builds or when a dev server is not specified, DO NOT REMOVE!!

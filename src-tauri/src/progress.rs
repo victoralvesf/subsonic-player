@@ -1,5 +1,5 @@
 use serde::{Deserialize, Serialize};
-use tauri::{AppHandle, Manager};
+use tauri::{AppHandle, Emitter};
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Progress {
@@ -12,10 +12,10 @@ pub struct Progress {
 
 impl Progress {
     pub fn emit_progress(&self, handle: &AppHandle) {
-        handle.emit_all("DOWNLOAD_PROGRESS", &self).ok();
+        handle.emit("DOWNLOAD_PROGRESS", &self).ok();
     }
 
     pub fn emit_finished(&self, handle: &AppHandle) {
-        handle.emit_all("DOWNLOAD_FINISHED", &self).ok();
+        handle.emit("DOWNLOAD_FINISHED", &self).ok();
     }
 }

@@ -1,5 +1,6 @@
-import { FetchOptions, fetch as tauriFetch } from '@tauri-apps/api/http'
+import { fetch as tauriFetch } from '@tauri-apps/plugin-http'
 import { useAppStore } from '@/store/app.store'
+import { HttpOptions } from '@/types/http/clientOptions'
 import { SubsonicJsonResponse } from '@/types/responses/subsonicResponse'
 import { appName } from '@/utils/appName'
 import { saltWord } from '@/utils/salt'
@@ -20,88 +21,49 @@ function queryParams() {
 
 function getUrl(path: string, options?: Record<string, string>) {
   const serverUrl = useAppStore.getState().data.url
-
   const params = new URLSearchParams(queryParams())
+
   if (options) {
     Object.keys(options).forEach((key) => {
       params.append(key, options[key])
     })
   }
 
-  return `${serverUrl}/rest/${path}?${params.toString()}`
-}
+  const queries = params.toString()
+  const sanitizedPath = path.startsWith('/') ? path.substring(1) : path
+  let url = `${serverUrl}/rest/${sanitizedPath}`
+  url += path.includes('?') ? `&${queries}` : `?${queries}`
 
-async function browserFetch<T>(
-  url: string,
-  options: RequestInit,
-): Promise<{ count: number; data: T } | undefined> {
-  try {
-    const response = await fetch(url, options)
-
-    if (response.ok) {
-      const data = await response.json()
-      return {
-        count: parseInt(response.headers.get('x-total-count') || '0', 10),
-        data: data['subsonic-response'] as T,
-      }
-    }
-  } catch (error) {
-    console.error('Error on browserFetch request', error)
-    return undefined
-  }
-}
-
-async function rustFetch<T>(
-  url: string,
-  options: FetchOptions,
-): Promise<{ count: number; data: T } | undefined> {
-  try {
-    const response = await tauriFetch(url, {
-      ...options,
-      query: {
-        ...options.query,
-        ...queryParams(),
-      },
-      body: options.body || undefined,
-    })
-
-    if (response.ok) {
-      const data = response.data as SubsonicJsonResponse
-
-      return {
-        count: parseInt(response.headers['x-total-count'] || '0', 10),
-        data: data['subsonic-response'] as T,
-      }
-    }
-  } catch (error) {
-    console.error('Error on tauriFetch request', error)
-    return undefined
-  }
+  return url
 }
 
 export async function httpClient<T>(
   path: string,
-  options: FetchOptions,
+  options: HttpOptions,
 ): Promise<{ count: number; data: T } | undefined> {
   try {
-    const { url } = useAppStore.getState().data
-    let fullUrl = `${url}/rest${path}`
+    const fullUrl = getUrl(path, options.query)
+
+    let response: Response | null = null
+
+    const requestOptions = {
+      method: options.method,
+      headers: options.headers,
+      body: options.body,
+    }
 
     if (isTauri()) {
-      return await rustFetch(fullUrl, { ...options })
+      response = await tauriFetch(fullUrl, requestOptions)
     } else {
-      const queries = new URLSearchParams({
-        ...options.query,
-        ...queryParams(),
-      }).toString()
+      response = await fetch(fullUrl, requestOptions)
+    }
 
-      fullUrl += path.includes('?') ? `&${queries}` : `?${queries}`
-
-      return await browserFetch<T>(fullUrl, {
-        method: options.method,
-        headers: options.headers,
-        body: options.body ? JSON.stringify(options.body) : undefined,
-      })
+    if (response.ok) {
+      const data = (await response.json()) as SubsonicJsonResponse
+      return {
+        count: parseInt(response.headers.get('x-total-count') || '0', 10),
+        data: data['subsonic-response'] as T,
+      }
     }
   } catch (error) {
     console.error('Error on httpClient request', error)
