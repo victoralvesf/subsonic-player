@@ -215,7 +215,8 @@
     "playlists": "Playlisty",
     "emptyPlaylist": "Nie utworzono jeszcze playlist",
     "favorites": "Ulubione",
-    "genres": "Gatunki"
+    "genres": "Gatunki",
+    "activity": "Aktywność"
   },
   "playlist": {
     "headline": "Playlista",
@@ -290,7 +291,8 @@
     "buttons": {
       "options": "Więcej opcji dla {{artist}}",
       "shuffle": "Odtwarzaj radio {{artist}} w trybie losowym",
-      "play": "Odtwarzaj radio {{artist}}"
+      "play": "Odtwarzaj radio {{artist}}",
+      "radio": "Uruchom radio na podstawie {{artist}}"
     },
     "info": {
       "albumsCount_one": "{{count}} album",
@@ -299,7 +301,10 @@
     },
     "recentAlbums": "Ostatnie albumy",
     "relatedArtists": "Powiązani wykonawcy",
-    "topSongs": "Popularne"
+    "topSongs": "Popularne",
+    "radio": {
+      "empty": "Nie znaleziono podobnych utworów do uruchomienia radia."
+    }
   },
   "table": {
     "columns": {
@@ -852,6 +857,40 @@
     "buttons": {
       "shuffleTracks": "Losowe utwory",
       "shuffleAlbums": "Losowe albumy"
+    }
+  },
+  "activity": {
+    "plays": "Odtworzenia",
+    "dailyActivity": "Dzienna aktywność",
+    "listeningHours": "Godziny słuchania",
+    "peak": "Szczyt",
+    "history": "Historia słuchania",
+    "less": "Mniej",
+    "more": "Więcej",
+    "recentPlays": "Ostatnie odtworzenia",
+    "topAlbums": "Top albumy",
+    "range": {
+      "7d": "7 dni",
+      "30d": "30 dni",
+      "90d": "90 dni",
+      "all": "Wszystko"
+    },
+    "summary": {
+      "totalPlays": "Odtworzenia razem",
+      "listeningTime": "Czas słuchania",
+      "uniqueArtists": "Unikalni wykonawcy",
+      "streak": "Passa",
+      "streakValue": "{{count}} dni",
+      "streakBest": "Najlpesza {{count}} dni"
+    },
+    "genres": {
+      "title": "Gatunki",
+      "unknown": "Nieznany",
+      "others": "Inne"
+    },
+    "empty": {
+      "title": "Brak aktywności",
+      "description": "Odtwórz jakąś muzykę i twoje statystyki słuchania pokaż się tutaj."
     }
   }
 }

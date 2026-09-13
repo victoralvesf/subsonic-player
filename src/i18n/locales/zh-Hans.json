@@ -462,13 +462,20 @@
       "previous": "跳到上一曲",
       "next": "跳到下一曲",
       "lowerVolume": "降低音量",
-      "raiseVolume": "提高音量"
+      "raiseVolume": "提高音量",
+      "toggleFullscreen": "切换全屏"
     },
     "navigation": {
       "label": "导航"
     },
     "sidebar": {
       "toggle": "切换侧边栏"
+    },
+    "zoom": {
+      "label": "缩放",
+      "in": "放大",
+      "out": "缩小",
+      "reset": "重置缩放"
     }
   },
   "songInfo": {
@@ -543,7 +550,8 @@
       "appearance": "外观",
       "privacy": "隐私和安全",
       "accounts": "账号",
-      "desktop": "桌面应用程序"
+      "desktop": "桌面应用程序",
+      "accessibility": "辅助功能"
     },
     "appearance": {
       "general": {
@@ -624,21 +632,37 @@
         },
         "group": "缓存",
         "lyrics": {
-          "label": "启用歌词缓存"
+          "label": "启用歌词缓存",
+          "info": "启用后，获取的歌词会存储在本地，从而在重复查看时立即加载。"
         },
         "clearAll": {
           "label": "清除缓存",
           "info": "移除本地存储的歌词，专辑封面和动画艺术作品URL。",
           "button": "清除所有",
-          "success": "成功清除缓存。"
+          "success": "成功清除缓存。",
+          "error": "清除部分缓存失败。"
         },
         "media": {
-          "label": "启用媒体缓存"
-        }
+          "label": "启用媒体缓存",
+          "info": "启用后，浏览器可能会缓存流式音频。禁用则强制浏览器每次重新获取媒体。"
+        },
+        "description": "控制应用在本地缓存的内容。"
       },
       "features": {
         "group": "特性",
         "description": "启用或禁用客户特性"
+      },
+      "home": {
+        "group": "首页",
+        "description": "自定义首页内容。",
+        "autoScroll": {
+          "label": "启用轮播自动滚动",
+          "info": "启用后，首页轮播图将在 10 秒后自动滚动。"
+        },
+        "loop": {
+          "label": "启用轮播循环",
+          "info": "启用后，首页轮播在到达末尾后将循环回到第一首歌曲。"
+        }
       }
     },
     "label": "设置",
@@ -704,6 +728,16 @@
         "tray": {
           "label": "最小化到托盘",
           "info": "启用后，点击关闭按钮时，应用程序将最小化到系统托盘，而不会关闭。"
+        }
+      }
+    },
+    "accessibility": {
+      "visual": {
+        "group": "视觉",
+        "description": "控制界面显示的大小和间距。",
+        "zoom": {
+          "label": "缩放等级",
+          "info": "调整界面大小。你也可以使用 {{key}} +/- 来更改。"
         }
       }
     }
